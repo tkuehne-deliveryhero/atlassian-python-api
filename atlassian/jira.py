@@ -2266,14 +2266,16 @@ class Jira(AtlassianRestAPI):
                 fields = fields + tab_fields
         return fields
 
-    def add_field_default_screen(self, field_id):
+    def add_field(self, field_id, screen_id, tab_id):
         """
-        Add field to default screen
-
-        :param field_id: field or custom field ID to be added to default screen
+        Add field to a given tab in a screen
+        :param field_id: field or custom field ID to be added
+        :param screen_id: screen ID
+        :param tab_id: tab ID
         """
-        url = "/rest/api/2/screens/addToDefault/" + field_id
-        return self.post(url)
+        url = f"rest/api/2/screens/{screen_id}/tabs/{tab_id}/fields"
+        data = {"fieldId": field_id}
+        return self.post(url, data = data)
 
     """
     Search
